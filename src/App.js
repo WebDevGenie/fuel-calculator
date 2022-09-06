@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const kmsPerFullTank = 500;
+  const tankCapacity = 55;
+  const costPerLitre = 1.55;
+  const kmsPerLitre = tankCapacity / kmsPerFullTank;
+
+  const [kmsDriven, setKmsDriven] = useState(0);
+
+  const [costOfTrip, setCostOfTrip] = useState(0);
+
+  function handleSubmit() {
+    setCostOfTrip(kmsPerLitre * costPerLitre * kmsDriven);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header>Fuel Cost Calculator</header>
+      <br />
+      How many KMs did you drive today?: <br />
+      <input type="text" onChange={(e) => setKmsDriven(e.target.value)} />{" "}
+      <button onClick={handleSubmit}>Submit</button>
+      <br />
+      Your fuel cost: {costOfTrip}
     </div>
   );
 }
